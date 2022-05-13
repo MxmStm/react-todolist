@@ -14,7 +14,8 @@ import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from './tasks-red
 import {TaskStatuses} from '../../api/todolists-api'
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm'
 import {Todolist} from './Todolist/Todolist'
-import {Grid, Paper} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 
 export const TodolistsList: React.FC = () => {
 

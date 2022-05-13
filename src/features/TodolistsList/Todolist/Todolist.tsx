@@ -6,7 +6,7 @@ import {FilterValuesType} from '../todolists-reducer'
 import {useDispatch} from 'react-redux'
 import {fetchTasksTC} from '../tasks-reducer'
 import {TodolistHeader} from "./TodolistHeader";
-import {List} from '@material-ui/core'
+import List from '@material-ui/core/List'
 import {ButtonsBlock} from "../../../components/Buttons/ButtonsBlock";
 
 type TodolistPropsType = {
