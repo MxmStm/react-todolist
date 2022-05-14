@@ -2,9 +2,11 @@ import React from 'react';
 import {EditableSpan} from "../../../components/EditableSpan/EditableSpan";
 import IconButton from "@material-ui/core/IconButton";
 import Delete from "@material-ui/icons/Delete";
+import {RequestStatusType} from "../../../app/app-reducer";
 
 type TodolistHeaderPropsType = {
     title: string
+    entityStatus: RequestStatusType
     removeTodolist: () => void
     changeTodolistTitle: (newTitle: string) => void
 }
@@ -24,7 +26,9 @@ export const TodolistHeader: React.FC<TodolistHeaderPropsType> = (
                     changeTitle={props.changeTodolistTitle}
                 />
                 <IconButton
-                    onClick={removeTodolist}>
+                    onClick={removeTodolist}
+                    disabled={props.entityStatus === 'loading'}
+                >
                     <Delete/>
                 </IconButton>
             </h3>

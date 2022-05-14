@@ -8,6 +8,7 @@ import {fetchTasksTC} from '../tasks-reducer'
 import {TodolistHeader} from "./TodolistHeader";
 import List from '@material-ui/core/List'
 import {ButtonsBlock} from "../../../components/Buttons/ButtonsBlock";
+import {RequestStatusType} from "../../../app/app-reducer";
 
 type TodolistPropsType = {
     id: string
@@ -21,6 +22,7 @@ type TodolistPropsType = {
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterValuesType
+    entityStatus: RequestStatusType
 }
 
 export const Todolist = React.memo(function (props: TodolistPropsType) {
@@ -63,10 +65,14 @@ export const Todolist = React.memo(function (props: TodolistPropsType) {
         <div className={'todolist'}>
             <TodolistHeader
                 title={props.title}
+                entityStatus={props.entityStatus}
                 removeTodolist={removeTodolist}
                 changeTodolistTitle={changeTodolistTitle}
             />
-            <AddItemForm addItem={addTask}/>
+            <AddItemForm
+                addItem={addTask}
+                disabled={props.entityStatus === 'loading'}
+            />
             <List>
                 {tasksForTodolist.map(t =>
                     <Task key={t.id}

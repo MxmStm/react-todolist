@@ -11,6 +11,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Menu from "@material-ui/icons/Menu";
 import {useAppSelector} from "./store";
 import {RequestStatusType} from "./app-reducer";
+import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
             <Container fixed>
                 <TodolistsList/>
             </Container>
+            <ErrorSnackbar/>
         </div>
     )
 }
