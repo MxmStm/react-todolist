@@ -1,6 +1,8 @@
 import {todolistsAPI, TodolistType} from '../../api/todolists-api'
 import {Dispatch} from 'redux'
 import {AppActionsType, RequestStatusType, setAppErrorAC, setAppStatusAC} from "../../app/app-reducer";
+import {AxiosError} from "axios";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 const initialState: Array<TodolistDomainType> = []
 
@@ -44,6 +46,9 @@ export const fetchTodolistsTC = () => (dispatch: Dispatch<ActionsType>) => {
             dispatch(setTodolistsAC(res.data))
             dispatch(setAppStatusAC('succeeded'))
         })
+        .catch((error: AxiosError) => {
+            handleServerNetworkError(error.message, dispatch)
+        })
 }
 export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
@@ -52,6 +57,9 @@ export const removeTodolistTC = (todolistId: string) => (dispatch: Dispatch<Acti
         .then((res) => {
             dispatch(removeTodolistAC(todolistId))
             dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch((error: AxiosError) => {
+            handleServerNetworkError(error.message, dispatch)
         })
 }
 export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>) => {
@@ -62,19 +70,26 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>
                 dispatch(addTodolistAC(res.data.data.item))
                 dispatch(setAppStatusAC('succeeded'))
             } else {
-                dispatch(setAppErrorAC(res.data.messages.length
-                    ? res.data.messages[0]
-                    : 'Some error occurred'))
-                dispatch(setAppStatusAC('failed'))
+                handleServerAppError(res.data, dispatch)
             }
+        })
+        .catch((error: AxiosError) => {
+            handleServerNetworkError(error.message, dispatch)
         })
 }
 export const changeTodolistTitleTC = (id: string, title: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     todolistsAPI.updateTodolist(id, title)
         .then((res) => {
-            dispatch(changeTodolistTitleAC(id, title))
-            dispatch(setAppStatusAC('succeeded'))
+            if (res.data.resultCode === 0) {
+                dispatch(changeTodolistTitleAC(id, title))
+                dispatch(setAppStatusAC('succeeded'))
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        })
+        .catch((error: AxiosError) => {
+            handleServerNetworkError(error.message, dispatch)
         })
 }
 
