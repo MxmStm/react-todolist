@@ -4,11 +4,10 @@ import TextField from "@material-ui/core/TextField";
 type EditableSpanPropsType = {
     title: string
     changeTitle: (newTitle: string) => void
+    disabled: boolean
 }
 
 export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
-
-    console.log('EditableSpan called');
 
     const [userNewTitle, setUserNewTitle] = useState<string>(props.title)
     const [editMode, setEditMode] = useState<boolean>(false)
@@ -17,7 +16,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
         setUserNewTitle(e.currentTarget.value)
     }
     const onEditMode = () => {
-        setEditMode(true)
+        props.disabled ? setEditMode(false) : setEditMode(true)
     }
     const offEditMode = () => {
         setEditMode(false)

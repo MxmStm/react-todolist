@@ -27,8 +27,6 @@ type TodolistPropsType = {
 
 export const Todolist = React.memo(function (props: TodolistPropsType) {
 
-    console.log('Todolist called')
-
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -65,7 +63,7 @@ export const Todolist = React.memo(function (props: TodolistPropsType) {
         <div className={'todolist'}>
             <TodolistHeader
                 title={props.title}
-                entityStatus={props.entityStatus}
+                disabled={props.entityStatus === 'loading'}
                 removeTodolist={removeTodolist}
                 changeTodolistTitle={changeTodolistTitle}
             />
@@ -81,6 +79,7 @@ export const Todolist = React.memo(function (props: TodolistPropsType) {
                           removeTask={props.removeTask}
                           changeTaskTitle={props.changeTaskTitle}
                           changeTaskStatus={props.changeTaskStatus}
+                          disabled={props.entityStatus === 'loading'}
                     />)}
             </List>
             <ButtonsBlock filter={props.filter} setFilterValue={setFilterValue}/>
