@@ -12,6 +12,8 @@ import Menu from "@material-ui/icons/Menu";
 import {useAppSelector} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {Login} from "../features/Login/Login";
+import {Navigate, Route, Routes} from "react-router-dom";
 
 function App() {
 
@@ -32,10 +34,15 @@ function App() {
                     </Typography>
                     <Button color="inherit" variant={"outlined"}>Login</Button>
                 </Toolbar>
+                {status === 'loading' && <LinearProgress color="secondary"/>}
             </AppBar>
-            {status === 'loading' && <LinearProgress color="secondary"/>}
             <Container fixed>
-                <TodolistsList/>
+                <Routes>
+                    <Route path={'/'} element={<TodolistsList/>}/>
+                    <Route path={'login'} element={<Login/>}/>
+                    <Route path={'404'} element={<h1 style={{textAlign: "center"}}>404: PAGE NOT FOUND</h1>}/>
+                    <Route path={'*'} element={<Navigate to={'404'}/>}/>
+                </Routes>
             </Container>
             <ErrorSnackbar/>
         </div>
