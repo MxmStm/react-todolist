@@ -1,20 +1,23 @@
 import React, {useEffect} from 'react'
+import {Navigate, Route, Routes} from "react-router-dom";
+import {useDispatch} from "react-redux";
+
 import './App.css'
 import {TodolistsList} from '../features/TodolistsList/TodolistsList'
+import {useAppSelector} from "./store";
+import {initializeAppTC, RequestStatusType} from "./app-reducer";
+import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {Login} from "../features/Login/Login";
+import {logoutTC} from "../features/Login/auth-reducer";
+
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Toolbar from "@material-ui/core/Toolbar";
-import {useAppSelector} from "./store";
-import {initializeAppTC, RequestStatusType} from "./app-reducer";
-import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import {Login} from "../features/Login/Login";
-import {Navigate, Route, Routes} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {logoutTC} from "../features/Login/auth-reducer";
+
 
 function App() {
 
@@ -61,6 +64,7 @@ function App() {
             </AppBar>
             <Container fixed>
                 <Routes>
+                    <Route path={'react-todolist'} element={<Navigate to={'/'}/>}/>
                     <Route path={'/'} element={<TodolistsList/>}/>
                     <Route path={'login'} element={<Login/>}/>
                     <Route path={'404'} element={<h1 style={{textAlign: "center"}}>404: PAGE NOT FOUND</h1>}/>

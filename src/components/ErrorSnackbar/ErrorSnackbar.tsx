@@ -1,9 +1,12 @@
 import React from 'react';
-import {Snackbar} from "@material-ui/core";
-import MuiAlert, {AlertProps} from '@material-ui/lab/Alert';
-import {useAppSelector} from "../../app/store";
 import {useDispatch} from "react-redux";
+
+import {useAppSelector} from "../../app/store";
 import {setAppErrorAC} from "../../app/app-reducer";
+
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert, {AlertProps} from '@material-ui/lab/Alert';
+
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props, ref) {
@@ -28,9 +31,7 @@ export const ErrorSnackbar = () => {
 
     return (
         <Snackbar open={error !== null} autoHideDuration={7000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity={'error'}>
-                😠 {error}
-            </Alert>
+            <Alert onClose={handleClose} severity={'error'}>😠 {error}</Alert>
         </Snackbar>
     );
 }

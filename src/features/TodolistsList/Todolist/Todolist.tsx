@@ -1,14 +1,17 @@
 import React, {useCallback, useEffect} from 'react'
+import {useDispatch} from 'react-redux'
+
 import {AddItemForm} from '../../../components/AddItemForm/AddItemForm'
 import {Task} from './Task/Task'
 import {TaskStatuses, TaskType} from '../../../api/todolists-api'
 import {FilterValuesType} from '../todolists-reducer'
-import {useDispatch} from 'react-redux'
 import {fetchTasksTC} from '../tasks-reducer'
 import {TodolistHeader} from "./TodolistHeader";
-import List from '@material-ui/core/List'
 import {ButtonsBlock} from "../../../components/Buttons/ButtonsBlock";
 import {RequestStatusType} from "../../../app/app-reducer";
+
+import List from '@material-ui/core/List'
+
 
 type TodolistPropsType = {
     id: string

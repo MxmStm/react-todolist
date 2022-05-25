@@ -1,7 +1,10 @@
 import React from 'react';
+
+import {FilterValuesType} from "../../features/TodolistsList/todolists-reducer";
+
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
-import {FilterValuesType} from "../../features/TodolistsList/todolists-reducer";
+
 
 type ButtonsBlockType = {
     filter: FilterValuesType
